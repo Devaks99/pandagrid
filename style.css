@@ -1,0 +1,243 @@
+/* Estilos base */
+body,
+html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #02021b;
+    flex-direction: column;
+}
+
+.game-area {
+    width: 990px;
+    height: 610px;
+    border: 3px solid #fffcfca1;
+    position: relative;
+    margin-top: 60px;
+    background-image: url('img/paisagem-fundo-selva.jpg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 25px;
+}
+
+/* Media query para ajustar a .game-area em telas menores */
+@media (max-width: 1200px) {
+    .game-area {
+        width: 80%;
+        height: 500px;
+    }
+}
+
+@media (max-width: 992px) {
+    .game-area {
+        width: 85%;
+        height: 450px;
+    }
+}
+
+@media (max-width: 768px) {
+    .game-area {
+        width: 90%;
+        height: 400px;
+    }
+}
+
+@media (max-width: 576px) {
+    .game-area {
+        width: 95%;
+        height: 350px;
+    }
+}
+
+/* Estilos para diferentes níveis */
+.game-area.level-easy {
+    background-image: url('img/paisagem-fundo-selva.jpg');
+}
+
+.game-area.level-medium {
+    background-image: url('img/paisagem-fundo-deserto.png');
+}
+
+.game-area.level-difficult {
+    background-image: url('img/paisagem-fundo-noturno.png');
+}
+
+.game-area.level-very-difficult {
+    background-image: url('img/paisagem-fundo-praia.png');
+}
+
+/* Estilos para elementos dentro da .game-area */
+.panda {
+    width: 80px; /* Tamanho inicial */
+    height: 80px; /* Tamanho inicial */
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.panda img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+@media (max-width: 768px) {
+    .panda {
+        width: 220px; /* Ajuste para um tamanho maior */
+        height: 220px; /* Ajuste para um tamanho maior */
+    }
+}
+
+
+.food {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.food img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.score {
+    color: beige;
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bolder;
+    white-space: nowrap;
+    gap: 70px;
+}
+
+#level {
+    color: beige;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 20px;
+}
+
+.button {
+    width: 140px;
+    height: 50px;
+    font-size: 20pt;
+    color: #ffff;
+    background-color: rgba(255, 188, 5, 0.712);
+    border: 2px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 27px;
+}
+
+.button:hover {
+    background-color: rgb(255, 186, 10);
+}
+
+.game-over {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(34, 32, 32, 0.548);
+    padding: 20px;
+    border-radius: 12px;
+    color: white;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.game-over h2 {
+    margin-bottom: 10px;
+}
+
+.game-over button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #fffcfca1;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.game-over button:hover {
+    background-color: #fffcfc;
+    color: #000;
+}
+
+.obstacle {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    background-image: url('img/bomba.png');
+    background-position: center;
+    background-size: cover;
+}
+
+.obstacle img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Ajustes adicionais para tornar o jogo responsivo */
+@media (max-width: 768px) {
+
+    .game-area{
+        width: 350px;
+        height: 350px;
+    }
+
+    .score {
+        font-size: 20px;
+        width: 300px;
+        gap: 30px;
+    }
+
+    .button {
+        width: 120px;
+        height: 48px;
+        font-size: 18pt;
+    }
+}
+
+@media (max-width: 576px) {
+    .score {
+        font-size: 16px;
+        width: 200px;
+        gap: 15px;
+    }
+
+    .button {
+        width: 100px;
+        height: 40px;
+        font-size: 14pt;
+    }
+
+    .game-over {
+        padding: 10px;
+    }
+
+    .game-over button {
+        padding: 5px 10px;
+        font-size: 14px;
+    }
+}

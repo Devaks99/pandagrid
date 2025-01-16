@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="img/panda_icon_1.png" type="image/x-icon">
+    <link rel="shortcut icon" href="img/panda_icon_1.png" type="image/x-icon">
+    <title>Grid Panda</title>
+</head>
+<body>
+    <div class="score">
+        <span id="level"> Nível: Fácil </span> <!-- Alterado para exibir o nível  -->
+        <span id="score"> Pontos: 0 </span> <!-- Alterado para exibir os pontos  -->
+    </div>
+
+    <div class="game-area">
+        <div class="panda" id="panda">
+            <img src="img/personagem-panda.png" alt="Panda">
+        </div>
+        <div class="food" id="food">
+            <img src="img/bamboo.png" alt="Bamboo">
+        </div>
+    </div>
+
+    <!-- Botões de controle (serão manipulados no JavaScript) -->
+    <div class="buttons">
+        <button class="button" id="pause">Pausar</button> 
+        <button class="button" id="reset">Reiniciar</button> 
+    </div>
+
+    <!-- Elemento para mostrar "Game Over" -->
+    <div class="game-over" id="gameOver">
+        <h2>Fim de Jogo!</h2> 
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
