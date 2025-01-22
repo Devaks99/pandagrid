@@ -47,7 +47,7 @@
 
 ## Screenshots
 
-![Tela Inicial do Grid Panda](img/jogopandagrid.png)
+![Tela Inicial do Grid Panda](pandagrid/img/jogopandagrid.png)
 
 ## Como Contribuir
 
