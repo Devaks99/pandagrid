@@ -10,9 +10,11 @@ Bem-vindo ao **PandaGrid**! Um jogo divertido e desafiador onde o objetivo é aj
 ![tela3 pandagrid](https://github.com/user-attachments/assets/da89c7b9-cbb7-49bb-a32f-bf8935c926ab)
 ![tela4 jogo pandagrid](https://github.com/user-attachments/assets/764cdace-1566-43d1-a993-5c84aaa2bb35)
 
+---
 **Tela Mobile📱** 
-![tela mobile pandag![tela2 mobile pandagrid](https://github.com/user-attachments/assets/e7fe0a90-5fef-4e9e-913c-1441eaecf0e4)
-rid](https://github.com/user-attachments/assets/d2c57ead-749b-413f-a713-fb41078f3668)
+![tela mobile pandagrid](https://github.com/user-attachments/assets/e18e8358-0e26-4116-9cdf-b9ef6b449edc)
+![tela2 mobile pandagrid](https://github.com/user-attachments/assets/c6902b4c-97c3-49c5-b098-9afa5002ff87)
+
 
 ---
 
