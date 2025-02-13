@@ -1,0 +1,242 @@
+/* Estilos Gerais */
+:root {
+    --primary: #2A9D8F;
+    --secondary: #264653;
+    --accent: #E9C46A;
+    --danger: #E76F51;
+    --bamboo: #87A96B;
+    --background: #F0F3BD;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--secondary);
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* Header */
+.main-header {
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    gap: 1rem;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+}
+
+.main-nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.main-nav a {
+    color: var(--light);
+    text-decoration: none;
+    transition: opacity 0.3s;
+    font-weight: bold;
+}
+
+.main-nav a:hover {
+    opacity: 0.8;
+    color: #ffc636;
+}
+
+/* Layout principal */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 100px auto 2rem;
+    padding: 0 1rem;
+}
+
+/* Imagem do Panda */
+.panda-img {
+    width: 200px;
+    height: auto;
+    transition: transform 0.3s;
+    margin-bottom: 0;
+}
+
+.panda-img:hover {
+    transform: scale(1.05);
+}
+
+/* Card de informações */
+.info-card {
+    background: #264653;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+    width: 100%;
+    max-width: 500px;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    margin: 1rem 0;
+}
+
+.info-card.show {
+    opacity: 1;
+}
+
+.info-card h2 {
+    color: #ffffff;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+/* Lista de informações */
+.description-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.description-list li {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.8rem;
+    border-radius: 5px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.info-card.show .description-list li {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Footer */
+.main-footer {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    text-align: center;
+    width: 100%;
+    margin-top: auto;
+    position: relative;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.social-icons a {
+    color: #ffffff;
+    font-size: 1.2rem;
+    transition: opacity 0.3s;
+}
+
+/* Menu Hamburguer */
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+/* Responsividade para Mobile */
+@media (max-width: 768px) {
+    .main-header {
+        padding: 0.8rem;
+    }
+
+    .logo {
+        width: 35px;
+        height: 35px;
+    }
+
+    .container {
+        flex-direction: column;
+        margin-top: 80px;
+        padding: 0 1rem;
+        gap: 1.5rem;
+    }
+
+    .panda-img {
+        width: 150px;
+        margin: 0 auto;
+    }
+
+    .info-card {
+        padding: 1rem;
+        margin: 0;
+    }
+
+    .info-card h2 {
+        font-size: 1.3rem;
+    }
+
+    .description-list li {
+        font-size: 0.9rem;
+        padding: 0.6rem;
+    }
+
+    .main-nav {
+        position: fixed;
+        top: 60px;
+        right: -100%;
+        flex-direction: column;
+        background: #2a9d9077;
+        width: 100%;
+        padding: 1rem;
+        transition: right 0.3s ease;
+    }
+
+    .main-nav.show {
+        right: 0;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+}
+
+@media (max-width: 480px) {
+    .panda-img {
+        width: 130px;
+    }
+
+    .info-card {
+        max-width: 100%;
+    }
+
+    .description-list li {
+        font-size: 0.85rem;
+    }
+}

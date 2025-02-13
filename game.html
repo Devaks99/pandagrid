@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="game.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="img/panda_icon_1.png" type="image/x-icon">
+    <title>Jogo - PandaGrid</title>
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo-container">
+            <a href="index.html" style="text-decoration: none; color: #fff;"><i class="fa-solid fa-paw logo"></i></a>
+            <h1><a href="index.html" style="text-decoration: none; color: #fff;">PandaGrid</a></h1>
+        </div>
+
+        <!-- Ícone do Menu Hamburguer -->
+        <div class="menu-toggle">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="sobre.html">Sobre</a>
+            <a href="contato.html">Contato</a>
+        </nav>
+    </header>
+
+    <div class="game-container">
+        <div class="game-header">
+            <div class="score-board">
+                <span class="badge" id="level">Nível 1</span>
+                <span class="badge" id="score">🍃 0</span>
+            </div>
+            <div class="controls">
+                <button class="control-btn" id="pause">⏸</button>
+                <button class="control-btn" id="reset">↻</button>
+            </div>
+       </div>
+       <div class="game-area" id="gameArea">
+        <div class="game-grid"></div>
+        <div class="panda" id="panda">
+            <i class="fa-solid fa-paw"></i>
+        </div>
+        <div class="food" id="food">
+            <i class="fa-solid fa-seedling"></i>
+        </div>
+    </div>
+       <div class="game-over" id="gameOver">
+           <h2>Game Over!</h2>
+           <p>Pontuação: <span id="finalScore">0</span></p>
+           <button class="play-btn" onclick="location.reload()">Jogar Novamente</button>
+       </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

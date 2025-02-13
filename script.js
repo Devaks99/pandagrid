@@ -1,265 +1,302 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const pandaElement = document.getElementById('panda');
-    const foodElement = document.getElementById('food');
+    const gameArea = document.getElementById('gameArea');
+    const panda = document.getElementById('panda');
+    const food = document.getElementById('food');
     const scoreElement = document.getElementById('score');
     const levelElement = document.getElementById('level');
-    const pauseButton = document.getElementById('pause');
-    const resetButton = document.getElementById('reset');
     const gameOverElement = document.getElementById('gameOver');
-    const gameArea = document.querySelector('.game-area');
+    const finalScoreElement = document.getElementById('finalScore');
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navMenu = document.querySelector(".main-nav");
 
-    let pandaX = 10;
-    let pandaY = 10;
-    let foodX = 5;
-    let foodY = 5;
-    let gridSize = 27;
-    let gridHeight = 16;
-    let cellSize = 35; // Tamanho inicial da célula
-    let velocityX = 1;
-    let velocityY = 0;
-    let score = 0;
-    let level = 1;
-    let obstacles = [];
-    let gamePaused = false;
-    let gameLoopInterval;
-    const initialInterval = 180; // Velocidade inicial ajustada para Fácil
-    let currentInterval = initialInterval; // Variável para armazenar o intervalo atual
+    // Sons
+    const leafSound = new Audio('sounds/folha.mp3');
+    const gameOverSound = new Audio('sounds/game-over.mp3');
+    const fireSound = new Audio('sounds/fogo-pontos.mp3');
+    const lightningSound = new Audio('sounds/raio.mp3');
+    const bgMusic = new Audio('sounds/gamemusic.mp3');
 
-    gameArea.classList.add('level-easy'); // Adicionado para garantir a classe inicial
+    // Configurações do jogo
+    const config = {
+        gridSize: 27,
+        gridHeight: 16,
+        baseSpeed: 200,
+        levels: {
+            1: { speed: 200, obstacles: 3, theme: 'jungle' },
+            2: { speed: 170, obstacles: 5, theme: 'desert' },
+            3: { speed: 140, obstacles: 7, theme: 'night' },
+            4: { speed: 110, obstacles: 9, theme: 'beach' },
+            5: { speed: 80, obstacles: 12, theme: 'jungle' }
+        }
+    };
 
-    pauseButton.addEventListener('click', togglePause);
+    // Estado do jogo
+    let state = {
+        pandaX: 10,
+        pandaY: 10,
+        foodX: 5,
+        foodY: 5,
+        velocityX: 1,
+        velocityY: 0,
+        score: 0,
+        level: 1,
+        obstacles: [],
+        gameLoop: null,
+        bgMusicPlaying: false
+    };
 
-    resetButton.addEventListener('click', () => {
-        gameOverElement.style.display = 'none';
-        resetGame();
+    // Menu Hamburguer
+    menuToggle.addEventListener("click", () => {
+        navMenu.classList.toggle("show");
+        menuToggle.classList.toggle("active");
     });
 
-    window.addEventListener('resize', checkResponsive);
-    checkResponsive(); // Verifica a responsividade inicialmente
+    document.querySelectorAll('.main-nav a').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove("show");
+            menuToggle.classList.remove("active");
+        });
+    });
 
-    function checkResponsive() {
-        if (window.innerWidth < 768) { // Define a largura máxima para o modo responsivo
-            updateCellSize();
-        } else {
-            resetCellSize();
+    function initGame() {
+        setupEventListeners();
+        spawnFood();
+        generateObstacles(config.levels[state.level].obstacles);
+        updateGameAreaTheme();
+        startGameLoop();
+        startBackgroundMusic();
+    }
+
+    function setupEventListeners() {
+        document.addEventListener('keydown', handleKeys);
+        document.getElementById('pause').addEventListener('click', togglePause);
+        document.getElementById('reset').addEventListener('click', resetGame);
+    }
+
+    function handleKeys(e) {
+        e.preventDefault();
+        const directions = {
+            ArrowUp: [0, -1],
+            ArrowDown: [0, 1],
+            ArrowLeft: [-1, 0],
+            ArrowRight: [1, 0]
+        };
+        
+        if (directions[e.key]) {
+            const [newX, newY] = directions[e.key];
+            if (state.velocityX !== newX || state.velocityY !== newY) {
+                state.velocityX = newX;
+                state.velocityY = newY;
+            }
         }
     }
 
-    function updateCellSize() {
-        const gameAreaWidth = gameArea.clientWidth;
-        const gameAreaHeight = gameArea.clientHeight;
-        cellSize = Math.min(gameAreaWidth / gridSize, gameAreaHeight / gridHeight);
-        pandaElement.style.width = `${cellSize}px`;
-        pandaElement.style.height = `${cellSize}px`;
-        foodElement.style.width = `${cellSize}px`;
-        foodElement.style.height = `${cellSize}px`;
-
-        for (let obstacle of obstacles) {
-            obstacle.element.style.width = `${cellSize}px`;
-            obstacle.element.style.height = `${cellSize}px`;
-            obstacle.element.style.left = `${obstacle.x * cellSize}px`;
-            obstacle.element.style.top = `${obstacle.y * cellSize}px`;
-        }
-
-        pandaElement.style.left = `${pandaX * cellSize}px`;
-        pandaElement.style.top = `${pandaY * cellSize}px`;
-        foodElement.style.left = `${foodX * cellSize}px`;
-        foodElement.style.top = `${foodY * cellSize}px`;
-    }
-
-    function resetCellSize() {
-        cellSize = 35; // Redefine o tamanho da célula para o valor inicial
-        pandaElement.style.width = `${cellSize}px`;
-        pandaElement.style.height = `${cellSize}px`;
-        foodElement.style.width = `${cellSize}px`;
-        foodElement.style.height = `${cellSize}px`;
-
-        for (let obstacle of obstacles) {
-            obstacle.element.style.width = `${cellSize}px`;
-            obstacle.element.style.height = `${cellSize}px`;
-            obstacle.element.style.left = `${obstacle.x * cellSize}px`;
-            obstacle.element.style.top = `${obstacle.y * cellSize}px`;
-        }
-
-        pandaElement.style.left = `${pandaX * cellSize}px`;
-        pandaElement.style.top = `${pandaY * cellSize}px`;
-        foodElement.style.left = `${foodX * cellSize}px`;
-        foodElement.style.top = `${foodY * cellSize}px`;
+    function startGameLoop() {
+        if (state.gameLoop) clearInterval(state.gameLoop);
+        state.gameLoop = setInterval(gameLoop, config.levels[state.level].speed);
     }
 
     function gameLoop() {
-        if (gamePaused) return;
+        if (state.isPaused) return;
+        
+        movePanda();
+        checkCollisions();
+        updatePositions();
+        checkLevelUp();
+    }
 
-        pandaX += velocityX;
-        pandaY += velocityY;
+    function movePanda() {
+        state.pandaX = clamp(state.pandaX + state.velocityX, 0, config.gridSize - 1);
+        state.pandaY = clamp(state.pandaY + state.velocityY, 0, config.gridHeight - 1);
+    }
 
-        if (pandaX < 0) pandaX = 0;
-        if (pandaX >= gridSize) pandaX = gridSize - 1;
-        if (pandaY < 0) pandaY = 0;
-        if (pandaY >= gridHeight) pandaY = gridHeight - 1;
+    function checkCollisions() {
+        // Colisão com obstáculos
+        state.obstacles.forEach(obs => {
+            if (obs.x === state.pandaX && obs.y === state.pandaY) {
+                handleObstacleCollision(obs.type);
+            }
+        });
 
-        for (let obstacle of obstacles) {
-            if (isCollision(pandaX, pandaY, obstacle.x, obstacle.y)) {
+        // Colisão com comida
+        if (state.pandaX === state.foodX && state.pandaY === state.foodY) {
+            handleFoodCollision();
+        }
+    }
+
+    function startBackgroundMusic() {
+        bgMusic.loop = true;
+        bgMusic.play().catch(error => {
+            console.log('A reprodução da música foi prevenida pelo navegador:', error);
+        });
+        state.bgMusicPlaying = true;
+    }
+
+    function handleObstacleCollision(type) {
+        switch(type) {
+            case 'skull':
                 gameOver();
-                return;
-            }
+                break;
+            case 'fire':
+                state.score = Math.floor(state.score * 0.5);
+                scoreElement.textContent = `🍃 ${state.score}`;
+                fireSound.currentTime = 0;
+                fireSound.play();
+                break;
+            case 'lightning':
+                clearInterval(state.gameLoop);
+                state.gameLoop = setInterval(gameLoop, config.baseSpeed * 0.7);
+                lightningSound.currentTime = 0;
+                lightningSound.play();
+                break;
         }
+    }
 
-        pandaElement.style.left = pandaX * cellSize + 'px';
-        pandaElement.style.top = pandaY * cellSize + 'px';
+    function handleFoodCollision() {
+        state.score++;
+        scoreElement.textContent = `🍃 ${state.score}`;
+        leafSound.play();
+        spawnFood();
+    }
 
-        if (isCollision(pandaX, pandaY, foodX, foodY)) {
+    function spawnFood() {
+        do {
+            state.foodX = randomPosition(config.gridSize);
+            state.foodY = randomPosition(config.gridHeight);
+        } while (invalidPosition(state.foodX, state.foodY));
+    }
+
+    function invalidPosition(x, y) {
+        return state.obstacles.some(obs => obs.x === x && obs.y === y) ||
+               (x === state.pandaX && y === state.pandaY);
+    }
+
+    function generateObstacles(count) {
+        // Limpar obstáculos antigos
+        state.obstacles.forEach(obs => obs.element.remove());
+        state.obstacles = [];
+        
+        const types = ['fire', 'skull', 'lightning'];
+        
+        for (let i = 0; i < count; i++) {
+            let newObstacle;
             do {
-                foodX = Math.floor(Math.random() * gridSize);
-                foodY = Math.floor(Math.random() * gridHeight);
-            } while (isFoodOnObstacle(foodX, foodY) || isCollision(pandaX, pandaY, foodX, foodY));
-
-            score++;
-            scoreElement.textContent = `Pontos: ${score}`;
-
-            if (score % 20 === 0) {
-                level++;
-                increaseDifficulty();
-            }
-        }
-
-        foodElement.style.left = foodX * cellSize + 'px';
-        foodElement.style.top = foodY * cellSize + 'px';
-    }
-
-    function isCollision(pandaX, pandaY, targetX, targetY) {
-        return pandaX === targetX && pandaY === targetY;
-    }
-
-    function isFoodOnObstacle(foodX, foodY) {
-        return obstacles.some(obstacle => obstacle.x === foodX && obstacle.y === foodY);
-    }
-
-    function increaseDifficulty() {
-        clearInterval(gameLoopInterval);
-
-        switch (level) {
-            case 2:
-                gameArea.classList.remove('level-easy');
-                gameArea.classList.add('level-medium');
-                gameArea.style.backgroundImage = "url('img/paisagem-fundo-deserto.png')";
-                levelElement.textContent = 'Nível: Médio';
-                currentInterval = 150;
-                createObstacles(4); // Adiciona 4 obstáculos para o nível médio
-                break;
-            case 3:
-                gameArea.classList.remove('level-medium');
-                gameArea.classList.add('level-difficult');
-                gameArea.style.backgroundImage = "url('img/paisagem-fundo-noturno.png')";
-                levelElement.textContent = 'Nível: Difícil';
-                currentInterval = 120;
-                createObstacles(6); // Adiciona 6 obstáculos para o nível difícil
-                break;
-            case 4:
-                gameArea.classList.remove('level-difficult');
-                gameArea.classList.add('level-very-difficult');
-                gameArea.style.backgroundImage = "url('img/paisagem-fundo-praia.png')";
-                levelElement.textContent = 'Nível: Muito Difícil';
-                currentInterval = 90;
-                createObstacles(10); // Adiciona 10 obstáculos para o nível muito difícil
-                break;
-            default:
-                currentInterval = initialInterval;
-                break;
-        }
-
-        gameLoopInterval = setInterval(gameLoop, currentInterval);
-    }
-
-    function createObstacles(numObstacles) {
-        obstacles = [];
-        for (let i = 0; i < numObstacles; i++) {
-            let obstacle;
-            do {
-                obstacle = {
-                    x: Math.floor(Math.random() * gridSize),
-                    y: Math.floor(Math.random() * gridHeight),
-                    element: document.createElement('div')
+                newObstacle = {
+                    x: randomPosition(config.gridSize),
+                    y: randomPosition(config.gridHeight),
+                    type: types[i % types.length],
+                    element: createObstacleElement(types[i % types.length])
                 };
-                obstacle.element.classList.add('obstacle');
-                obstacle.element.style.width = `${cellSize}px`;
-                obstacle.element.style.height = `${cellSize}px`;
-                obstacle.element.style.left = `${obstacle.x * cellSize}px`;
-                obstacle.element.style.top = `${obstacle.y * cellSize}px`;
-                gameArea.appendChild(obstacle.element);
-            } while (isFoodOnObstacle(obstacle.x, obstacle.y) || isCollision(pandaX, pandaY, obstacle.x, obstacle.y));
-
-            obstacles.push(obstacle);
+            } while (invalidPosition(newObstacle.x, newObstacle.y));
+            
+            state.obstacles.push(newObstacle);
         }
+    }
+
+    function createObstacleElement(type) {
+        const obstacle = document.createElement('div');
+        obstacle.className = `obstacle ${type}`;
+        obstacle.innerHTML = `<i class="fa-solid fa-${type === 'lightning' ? 'bolt' : type}"></i>`;
+        gameArea.appendChild(obstacle);
+        return obstacle;
+    }
+
+    function updatePositions() {
+        const cellSize = calculateCellSize();
+        
+        // Atualizar posição do Panda
+        panda.style.transform = `translate(
+            ${state.pandaX * cellSize.width}px, 
+            ${state.pandaY * cellSize.height}px
+        )`;
+
+        // Atualizar posição da Comida
+        food.style.transform = `translate(
+            ${state.foodX * cellSize.width}px, 
+            ${state.foodY * cellSize.height}px
+        )`;
+
+        // Atualizar obstáculos
+        state.obstacles.forEach(obs => {
+            obs.element.style.transform = `translate(
+                ${obs.x * cellSize.width}px, 
+                ${obs.y * cellSize.height}px
+            )`;
+        });
+    }
+
+    function checkLevelUp() {
+        const nextLevel = Math.floor(state.score / 10) + 1;
+        if (nextLevel > state.level && nextLevel <= Object.keys(config.levels).length) {
+            state.level = nextLevel;
+            updateLevel();
+        }
+    }
+
+    function updateLevel() {
+        levelElement.textContent = `Nível ${state.level}`;
+        generateObstacles(config.levels[state.level].obstacles);
+        updateGameAreaTheme();
+        startGameLoop();
+    }
+
+    function updateGameAreaTheme() {
+        gameArea.className = `game-area ${config.levels[state.level].theme}`;
     }
 
     function togglePause() {
-        gamePaused = !gamePaused;
-        if (gamePaused) {
-            clearInterval(gameLoopInterval);
-            pauseButton.textContent = 'Jogar';
+        state.isPaused = !state.isPaused;
+        document.getElementById('pause').textContent = state.isPaused ? '▶' : '⏸';
+        if (state.isPaused) {
+            bgMusic.pause();
         } else {
-            gameLoopInterval = setInterval(gameLoop, currentInterval);
-            pauseButton.textContent = 'Pausar';
+            bgMusic.play();
         }
-    }
-
-    function resetGame() {
-        pandaX = 10;
-        pandaY = 10;
-        foodX = 5;
-        foodY = 5;
-        score = 0;
-        level = 1;
-        obstacles = [];
-        gamePaused = false;
-        scoreElement.textContent = `Pontos: ${score}`;
-        levelElement.textContent = 'Nível: Fácil';
-        gameArea.classList.remove('level-medium', 'level-difficult', 'level-very-difficult');
-        gameArea.classList.add('level-easy');
-        gameArea.style.backgroundImage = "url('img/paisagem-fundo-selva.jpg')"; // Corrigido para a imagem inicial
-        renderObstacles();
-        clearInterval(gameLoopInterval); // Adicionado para garantir que o intervalo anterior seja cancelado
-        currentInterval = initialInterval; // Reinicia o currentInterval
-        gameLoopInterval = setInterval(gameLoop, currentInterval); // Velocidade inicial ajustada para Fácil
     }
 
     function gameOver() {
-        clearInterval(gameLoopInterval);
+        clearInterval(state.gameLoop);
+        finalScoreElement.textContent = state.score;
         gameOverElement.style.display = 'block';
+        bgMusic.pause();
+        bgMusic.currentTime = 0;
+        gameOverSound.play();
     }
 
-    document.addEventListener('keydown', (event) => {
-        switch (event.key) {
-            case 'ArrowUp':
-                if (velocityY === 0) {
-                    velocityX = 0;
-                    velocityY = -1;
-                }
-                break;
-            case 'ArrowDown':
-                if (velocityY === 0) {
-                    velocityX = 0;
-                    velocityY = 1;
-                }
-                break;
-            case 'ArrowLeft':
-                if (velocityX === 0) {
-                    velocityX = -1;
-                    velocityY = 0;
-                }
-                break;
-            case 'ArrowRight':
-                if (velocityX === 0) {
-                    velocityX = 1;
-                    velocityY = 0;
-                }
-                break;
-            case ' ':
-                togglePause();
-                break;
-        }
+    function resetGame() {
+        clearInterval(state.gameLoop);
+        state = {
+            pandaX: 10,
+            pandaY: 10,
+            foodX: 5,
+            foodY: 5,
+            velocityX: 1,
+            velocityY: 0,
+            score: 0,
+            level: 1,
+            obstacles: [],
+            gameLoop: null,
+            bgMusicPlaying: false
+        };
+
+        
+    
+        scoreElement.textContent = '🍃 0';
+        levelElement.textContent = 'Nível 1';
+        gameOverElement.style.display = 'none';
+        updateGameAreaTheme();
+        spawnFood();
+        generateObstacles(config.levels[1].obstacles);
+        startGameLoop();
+    }
+
+    // Funções utilitárias
+    const clamp = (num, min, max) => Math.max(min, Math.min(num, max));
+    const randomPosition = (max) => Math.floor(Math.random() * max);
+    const calculateCellSize = () => ({
+        width: gameArea.clientWidth / config.gridSize,
+        height: gameArea.clientHeight / config.gridHeight
     });
 
-    gameLoopInterval = setInterval(gameLoop, currentInterval); // Inicialização do intervalo do game loop
+    initGame();
 });

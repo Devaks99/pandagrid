@@ -1,243 +1,168 @@
-/* Estilos base */
-body,
-html {
-    height: 100%;
+/* Estilos Gerais */
+:root {
+    --primary: #2A9D8F;
+    --secondary: #264653;
+    --accent: #E9C46A;
+    --danger: #E76F51;
+    --bamboo: #87A96B;
+    --background: #F0F3BD;
+    --light: #FFFFFF;
+}
+
+* {
     margin: 0;
+    box-sizing: border-box;
+}
+
+.text{
+    color: #ffff;
+    font-weight: bold;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--secondary);
+    color: var(--light);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Header */
+.main-header {
+    padding: 1rem 2rem;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ffffff;
+    font-weight: bold;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-left: 7px;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+}
+
+.main-nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.main-nav a {
+    color: var(--light);
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.main-nav a:hover {
+    opacity: 0.8;
+    color: #ffc636;
+}
+/* final do header */
+
+/* button de play */
+.play-button {
+    display: inline-block;
+    padding: 1rem 3rem;
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    border-radius: 18px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: transform 0.3s, background 0.3s;
+    margin-top: 2rem;
+}
+
+.play-button:hover {
+    background:  #ffc636;
+    color: #222020da;
+    transform: translateY(-2px);
+}
+
+
+/* Página Inicial */
+.start-container {
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #02021b;
-    flex-direction: column;
+    padding: 2rem;
 }
 
-.game-area {
-    width: 990px;
-    height: 610px;
-    border: 3px solid #fffcfca1;
-    position: relative;
-    margin-top: 60px;
-    background-image: url('img/paisagem-fundo-selva.jpg');
-    background-size: cover;
-    background-position: center;
-    border-radius: 25px;
-}
-
-/* Media query para ajustar a .game-area em telas menores */
-@media (max-width: 1200px) {
-    .game-area {
-        width: 80%;
-        height: 500px;
-    }
-}
-
-@media (max-width: 992px) {
-    .game-area {
-        width: 85%;
-        height: 450px;
-    }
-}
-
-@media (max-width: 768px) {
-    .game-area {
-        width: 90%;
-        height: 400px;
-    }
-}
-
-@media (max-width: 576px) {
-    .game-area {
-        width: 95%;
-        height: 350px;
-    }
-}
-
-/* Estilos para diferentes níveis */
-.game-area.level-easy {
-    background-image: url('img/paisagem-fundo-selva.jpg');
-}
-
-.game-area.level-medium {
-    background-image: url('img/paisagem-fundo-deserto.png');
-}
-
-.game-area.level-difficult {
-    background-image: url('img/paisagem-fundo-noturno.png');
-}
-
-.game-area.level-very-difficult {
-    background-image: url('img/paisagem-fundo-praia.png');
-}
-
-/* Estilos para elementos dentro da .game-area */
-.panda {
-    width: 80px; /* Tamanho inicial */
-    height: 80px; /* Tamanho inicial */
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.panda img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-}
-@media (max-width: 768px) {
-    .panda {
-        width: 220px; /* Ajuste para um tamanho maior */
-        height: 220px; /* Ajuste para um tamanho maior */
-    }
-}
-
-
-.food {
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.food img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-}
-
-.score {
-    color: beige;
-    font-size: 30px;
-    font-family: Arial, Helvetica, sans-serif;
+.start-content {
     text-align: center;
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 400px;
-    display: flex;
-    justify-content: space-between;
-    font-weight: bolder;
-    white-space: nowrap;
-    gap: 70px;
+    animation: fadeIn 1s ease-in;
 }
 
-#level {
-    color: beige;
+.game-logo img {
+    width: 150px;
+    margin-bottom: 1rem;
 }
 
-.buttons {
+/* Footer */
+.main-footer {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1.5rem;
+    text-align: center;
+    color: #ffffff;
+    font-weight: bold;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.social-icons {
     display: flex;
     justify-content: center;
-    gap: 50px;
-    margin-top: 20px;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
 }
 
-.button {
-    width: 140px;
-    height: 50px;
-    font-size: 20pt;
-    color: #ffff;
-    background-color: rgba(255, 188, 5, 0.712);
-    border: 2px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 27px;
+.social-icons a {
+    color: var(--light);
+    font-size: 1.5rem;
+    transition: opacity 0.3s;
 }
 
-.button:hover {
-    background-color: rgb(255, 186, 10);
+.social-icons a:hover {
+    opacity: 0.8;
+    color: #ffc123;
 }
+/* final do footer */
 
-.game-over {
-    display: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(34, 32, 32, 0.548);
-    padding: 20px;
-    border-radius: 12px;
-    color: white;
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-}
 
-.game-over h2 {
-    margin-bottom: 10px;
-}
-
-.game-over button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #fffcfca1;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
-}
-
-.game-over button:hover {
-    background-color: #fffcfc;
-    color: #000;
-}
-
-.obstacle {
-    width: 80px;
-    height: 80px;
-    position: absolute;
-    background-image: url('img/bomba.png');
-    background-position: center;
-    background-size: cover;
-}
-
-.obstacle img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-}
-
-/* Ajustes adicionais para tornar o jogo responsivo */
+/* Media para telas */
 @media (max-width: 768px) {
-
-    .game-area{
-        width: 350px;
-        height: 350px;
+    .main-header {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
     }
 
-    .score {
-        font-size: 20px;
-        width: 300px;
-        gap: 30px;
-    }
-
-    .button {
-        width: 120px;
-        height: 48px;
-        font-size: 18pt;
-    }
-}
-
-@media (max-width: 576px) {
-    .score {
-        font-size: 16px;
-        width: 200px;
-        gap: 15px;
-    }
-
-    .button {
+    .game-logo img {
         width: 100px;
-        height: 40px;
-        font-size: 14pt;
     }
 
-    .game-over {
-        padding: 10px;
-    }
-
-    .game-over button {
-        padding: 5px 10px;
-        font-size: 14px;
+    .play-button {
+        padding: 0.8rem 2rem;
     }
 }
+

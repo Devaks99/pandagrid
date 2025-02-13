@@ -1,0 +1,244 @@
+/* Estilos Gerais */
+:root {
+    --primary: #2A9D8F;
+    --secondary: #264653;
+    --accent: #E9C46A;
+    --danger: #E76F51;
+    --bamboo: #87A96B;
+    --background: #F0F3BD;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--secondary);
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* Header */
+.main-header {
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    gap: 1rem;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+}
+
+.main-nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.main-nav a {
+    color: var(--light);
+    text-decoration: none;
+    transition: opacity 0.3s;
+    font-weight: bold;
+}
+
+.main-nav a:hover {
+    opacity: 0.8;
+    color: #ffc636;
+}
+
+/* Layout principal */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 100px auto 2rem;
+    padding: 0 1rem;
+}
+
+/* Imagem do Panda */
+.panda-img {
+    width: 200px;
+    height: auto;
+    transition: transform 0.3s;
+    margin-bottom: 0;
+}
+
+.panda-img:hover {
+    transform: scale(1.05);
+}
+
+/* Lista de contatos */
+.contact-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 20px;
+}
+
+.contact-list li {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.contact-list li:hover {
+    transform: translateX(10px);
+}
+
+.contact-list i {
+    font-size: 1.5rem;
+    width: 30px;
+    text-align: center;
+}
+
+.contact-list span {
+    font-weight: bold;
+    color: #E9C46A;
+    min-width: 80px;
+}
+
+.contact-list a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-list a:hover {
+    color: #2A9D8F;
+    text-decoration: underline;
+}
+
+/* Responsividade para Mobile */
+@media (max-width: 768px) {
+    .contact-list li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .contact-list span {
+        min-width: auto;
+    }
+
+    .contact-list i {
+        font-size: 1.2rem;
+    }
+}
+
+/* Footer */
+.main-footer {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    text-align: center;
+    width: 100%;
+    margin-top: auto;
+    position: relative;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.social-icons a {
+    color: #ffffff;
+    font-size: 1.2rem;
+    transition: opacity 0.3s;
+}
+
+/* Menu Hamburguer */
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+/* Responsividade para Mobile */
+@media (max-width: 768px) {
+    .main-header {
+        padding: 0.8rem;
+    }
+
+    .logo {
+        width: 35px;
+        height: 35px;
+    }
+
+    .container {
+        flex-direction: column;
+        margin-top: 80px;
+        padding: 0 1rem;
+        gap: 1.5rem;
+    }
+
+    .panda-img {
+        width: 150px;
+        margin: 0 auto;
+    }
+
+    .main-nav {
+        position: fixed;
+        top: 60px;
+        right: -100%;
+        flex-direction: column;
+        background: #2a9d9077;
+        width: 100%;
+        padding: 1rem;
+        transition: right 0.3s ease;
+    }
+
+    .main-nav.show {
+        right: 0;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+}
+
+@media (max-width: 480px) {
+    .panda-img {
+        width: 130px;
+    }
+
+    .info-card {
+        max-width: 100%;
+    }
+
+    .description-list li {
+        font-size: 0.85rem;
+    }
+}
