@@ -1,63 +1,60 @@
-# Grid Panda
+# 🐼 PandaGrid
 
-**Grid Panda** é um jogo simples e divertido onde o jogador controla um panda que deve coletar bambus enquanto evita obstáculos. O jogo aumenta de dificuldade conforme o jogador avança de nível, com mudanças no cenário e na quantidade de obstáculos.
+Bem-vindo ao **PandaGrid**! Um jogo divertido e desafiador onde o objetivo é ajudar o panda a pegar os bambus enquanto desvia dos obstáculos perigosos. Prepare-se para a aventura!
 
-## Funcionalidades
+---
 
-- **Controle do Panda:** O jogador pode mover o panda pelas teclas de direção (setas).
-- **Coleta de Bambus:** O objetivo é coletar bambus que aparecem na tela.
-- **Níveis de Dificuldade:** O jogo possui níveis que aumentam a dificuldade ao coletar mais pontos, com a introdução de obstáculos e novos cenários.
-- **Botões de Controle:** Possui botões para pausar e reiniciar o jogo.
-- **Exibição de Pontuação e Nível:** O jogador pode acompanhar o nível e a pontuação durante o jogo.
+## 📸 Screenshots
+![tela1 pandagrid](https://github.com/user-attachments/assets/3954514a-853d-4393-a3d7-534bd9c9ae06)
+![tela2 pandagrid](https://github.com/user-attachments/assets/69b406d2-1a6e-4571-8805-0262059b08c1)
+![tela3 pandagrid](https://github.com/user-attachments/assets/da89c7b9-cbb7-49bb-a32f-bf8935c926ab)
+![tela4 jogo pandagrid](https://github.com/user-attachments/assets/764cdace-1566-43d1-a993-5c84aaa2bb35)
 
-## Tecnologias Utilizadas
+**Tela Mobile📱** 
+![tela mobile pandag![tela2 mobile pandagrid](https://github.com/user-attachments/assets/e7fe0a90-5fef-4e9e-913c-1441eaecf0e4)
+rid](https://github.com/user-attachments/assets/d2c57ead-749b-413f-a713-fb41078f3668)
 
-- **HTML5:** Estruturação da página do jogo.
-- **CSS3:** Estilização da interface, com uso de imagens de fundo para diferentes níveis.
-- **JavaScript:** Lógica do jogo, controle de movimento, detecção de colisões, níveis e pontuação.
+---
 
-## Como Jogar
+## 🎮 Como Jogar
 
-1. **Movimentação:** Use as setas do teclado para mover o panda.
-2. **Coletar Bambus:** O objetivo é coletar o bambu que aparece aleatoriamente na tela. Cada coleta aumenta sua pontuação.
-3. **Evitar Obstáculos:** Evite os obstáculos que surgem à medida que o jogo avança.
-4. **Níveis de Dificuldade:** A cada 20 pontos, o jogo aumenta o nível, introduzindo mais obstáculos e mudando o fundo para um cenário mais desafiador.
+- **Objetivo**: Ajude o panda a pegar os bambus espalhados pelo cenário e evitar os obstáculos que surgem no caminho.
+- **Obstáculos**:
+  - 🔥 **Fogo**: Se o panda tocar no fogo, ele perde pontos.
+  - ⚡ **Raio**: Ao tocar no raio, o panda aumenta sua velocidade.
+  - 💀 **Caveira**: A caveira é fatal! Se o panda colidir com ela, o jogo acaba (game over).
 
-### Controles
+---
 
-- **Seta para cima:** Move o panda para cima.
-- **Seta para baixo:** Move o panda para baixo.
-- **Seta para esquerda:** Move o panda para a esquerda.
-- **Seta para direita:** Move o panda para a direita.
-- **Espaço:** Pausa e retoma o jogo.
-- **Botões "Pausar" e "Reiniciar":** Controlam a pausa e reinicialização do jogo.
+## 💡 Funcionalidades
 
-## Funcionalidades em Detalhes
+- **Controles**: Use as teclas direcionais (↑, ↓, ←, →) ou os botões na tela para mover o panda.
+- **Níveis de dificuldade**: O jogo tem diferentes níveis de dificuldade. À medida que o jogo avança, mais obstáculos aparecem!
+- **Animações**: O panda, bambus e obstáculos possuem animações dinâmicas para tornar o jogo mais interessante e desafiador.
 
-### Níveis de Dificuldade
+---
 
-- **Nível Fácil:** Cenário da selva, poucas dificuldades e movimento mais lento.
-- **Nível Médio:** Cenário do deserto, com mais obstáculos e movimento um pouco mais rápido.
-- **Nível Difícil:** Cenário noturno, mais obstáculos e maior velocidade.
-- **Nível Muito Difícil:** Cenário da praia, muitos obstáculos e alta velocidade.
+## 🌍 Cenários
 
-### Obstáculos
+O jogo apresenta diferentes cenários que mudam conforme o nível de dificuldade:
 
-- Os obstáculos são gerados aleatoriamente conforme o nível aumenta. Evite-os para não perder o jogo!
+- 🌴 **Jungle**: Um ambiente tropical com bambus e muitos obstáculos.
 
-## Screenshots
+---
 
-![Tela Inicial do Grid Panda](pandagrid/img/jogopandagrid.png)
+## 🛠️ Tecnologias Utilizadas
 
-## Como Contribuir
+Este jogo foi desenvolvido com as seguintes tecnologias:
 
-1. Faça um fork deste repositório.
-2. Crie uma branch para a sua feature (`git checkout -b feature-nome-da-feature`).
-3. Commit suas mudanças (`git commit -m 'Adicionando nova feature'`).
-4. Push para a branch (`git push origin feature-nome-da-feature`).
-5. Abra um pull request.
+- HTML5
+- CSS3
+- JavaScript
+- Font Awesome para os ícones
 
-## Licença
+---
 
-Este projeto está licenciado sob a [MIT License](LICENSE).
+## 📦 Instalação
 
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/Devaks99/pandagrid.git
