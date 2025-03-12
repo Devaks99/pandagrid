@@ -204,10 +204,10 @@ body {
 .mobile-controls {
     display: none; /* Escondido por padrão */
     position: absolute;
-    bottom: 10px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    gap: 10px;
+    gap: 8px;
     flex-direction: column;
     align-items: center;
     z-index: 1000;
@@ -216,8 +216,8 @@ body {
 
 .mobile-controls .row {
     display: flex;
-    gap: 60px;
-    margin: 5px 0;
+    gap: 50px;
+    margin: 3px 0;
 }
 
 .mobile-btn {
@@ -225,7 +225,7 @@ body {
     height: 50px;
     border-radius: 50%;
     background: var( --buttonmobile);
-    border: 2px solid var(--light);
+    border: 1px solid var(--light);
     color: var(--light);
     font-size: 1.2rem;
     cursor: pointer;
@@ -240,6 +240,19 @@ body {
 .mobile-btn:active {
     background: var(--accent);
     transform: scale(0.95);
+}
+
+/* Dispositivos muito pequenos */
+@media (max-width: 480px) { 
+    .mobile-controls .row {
+        gap: 40px;
+    }
+    
+    .mobile-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+    }
 }
 
 
@@ -270,9 +283,9 @@ body {
     .mobile-controls {
         display: flex;
         flex-direction: column;
-        bottom: 20px;
+        bottom: 15px;
         width: 100%;
-        max-width: 300px;
+        max-width: 280px;
     }
 
     .mobile-btn {
@@ -298,7 +311,7 @@ body {
     .game-container {
         height: calc(100vh - 60px); /* Considerar altura do header */
         margin-top: 60px; /* Altura do header */
-        padding-bottom: 120px; /* Espaço para controles */
+        padding-bottom: 100px; /* Espaço para controles */
         width: calc(100% - 20px); /* Margens laterais */
         margin-left: 10px;
         margin-right: 10px;
