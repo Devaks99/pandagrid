@@ -19,6 +19,10 @@
     font-weight: bold;
 }
 
+html {
+    touch-action: manipulation;
+}
+
 body {
     font-family: 'Segoe UI', system-ui, sans-serif;
     background: var(--secondary);

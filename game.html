@@ -1,8 +1,9 @@
+<!-- game.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="game.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="icon" href="img/panda_icon_1.png" type="image/x-icon">
@@ -15,7 +16,6 @@
             <h1><a href="index.html" style="text-decoration: none; color: #fff;">PandaGrid</a></h1>
         </div>
 
-        <!-- Ícone do Menu Hamburguer -->
         <div class="menu-toggle">
             <i class="fa-solid fa-bars"></i>
         </div>
@@ -37,23 +37,33 @@
                 <button class="control-btn" id="pause">⏸</button>
                 <button class="control-btn" id="reset">↻</button>
             </div>
-       </div>
-       <div class="game-area" id="gameArea">
-        <div class="game-grid"></div>
-        <div class="panda" id="panda">
-            <i class="fa-solid fa-paw"></i>
         </div>
-        <div class="food" id="food">
-            <i class="fa-solid fa-seedling"></i>
+        <div class="game-area" id="gameArea">
+            <div class="game-grid"></div>
+            <div class="panda" id="panda">
+                <i class="fa-solid fa-paw"></i>
+            </div>
+            <div class="food" id="food">
+                <i class="fa-solid fa-seedling"></i>
+            </div>
+        </div>
+        <div class="game-over" id="gameOver">
+            <h2>Game Over!</h2>
+            <p>Pontuação: <span id="finalScore">0</span></p>
+            <button class="play-btn" onclick="location.reload()">Jogar Novamente</button>
+        </div>
+
+        <!-- Controles Mobile -->
+        <div class="mobile-controls">
+            <button class="mobile-btn" id="upBtn"><i class="fa-solid fa-arrow-up"></i></button>
+            <div class="row">
+                <button class="mobile-btn" id="leftBtn"><i class="fa-solid fa-arrow-left"></i></button>
+                <button class="mobile-btn" id="rightBtn"><i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+            <button class="mobile-btn" id="downBtn"><i class="fa-solid fa-arrow-down"></i></button>
         </div>
     </div>
-       <div class="game-over" id="gameOver">
-           <h2>Game Over!</h2>
-           <p>Pontuação: <span id="finalScore">0</span></p>
-           <button class="play-btn" onclick="location.reload()">Jogar Novamente</button>
-       </div>
-    </div>
-    
+
     <script src="script.js"></script>
 </body>
 </html>

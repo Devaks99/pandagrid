@@ -9,6 +9,7 @@
     --skull: #FF0000;      /* Vermelho vivo */
     --lightning: #FFD700;  /* Amarelo ouro */
     --dark: #000000;
+    --buttonmobile: #4a666398;
 }
 
 * {
@@ -24,8 +25,8 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
-    padding: 20px;
-    overflow-x: hidden;
+    padding: 0; /* Remover padding original de 20px */
+    overflow: hidden; /* Prevenir scroll em qualquer direção */
 }
 
 /* Header */
@@ -72,7 +73,8 @@ body {
 /* Container do Jogo */
 .game-container {
     flex: 1;
-    width: 95%;
+    width: 100%;
+    height: calc(100vh - 80px); /* Considerar header e margens */
     max-width: 1200px;
     margin: 80px auto 20px;
     position: relative;
@@ -83,14 +85,16 @@ body {
     background-repeat: no-repeat;
     background-size: cover; /* Ajusta a imagem para cobrir todo o container */
     background-position: center; /* Centraliza a imagem */
+    display: flex;
+    flex-direction: column;
 }
 
 .game-area {
+    flex: 1;
     width: 100%;
-    height: 70vh;
     position: relative;
-    background-size: cover;
-    background-position: center;
+    overflow: hidden;
+    margin: 0 10px; /* Pequena margem nas laterais */
 }
 
 /* Elementos do Jogo */
@@ -196,8 +200,54 @@ body {
     cursor: pointer;
     font-size: 1.5rem;
 }
+/* Controles Mobile */
+.mobile-controls {
+    display: none; /* Escondido por padrão */
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1000;
+    touch-action: manipulation;
+}
+
+.mobile-controls .row {
+    display: flex;
+    gap: 60px;
+    margin: 5px 0;
+}
+
+.mobile-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var( --buttonmobile);
+    border: 2px solid var(--light);
+    color: var(--light);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: all 0.1s ease;
+}
+
+.mobile-btn:active {
+    background: var(--accent);
+    transform: scale(0.95);
+}
+
 
 @media (max-width: 768px) {
+    body {
+        touch-action: manipulation;
+    }
+
     .main-nav {
         position: fixed;
         top: 60px;
@@ -217,8 +267,41 @@ body {
         display: block;
     }
 
+    .mobile-controls {
+        display: flex;
+        flex-direction: column;
+        bottom: 20px;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .mobile-btn {
+        width: 55px;
+        height: 55px;
+        font-size: 1.3rem;
+    }
+
+    .game-area {
+        touch-action: none;
+    }
+
+    .game-header {
+        margin: 0.5rem;
+        padding: 0.8rem;
+    }
+
+    .score-board {
+        gap: 1rem;
+        font-size: 1rem;
+    }
+
     .game-container {
-        margin-top: 100px;
+        height: calc(100vh - 60px); /* Considerar altura do header */
+        margin-top: 60px; /* Altura do header */
+        padding-bottom: 120px; /* Espaço para controles */
+        width: calc(100% - 20px); /* Margens laterais */
+        margin-left: 10px;
+        margin-right: 10px;
     }
 
     .panda i { font-size: 1.5rem; }
